@@ -4,16 +4,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="571.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.geeklythings.fieldmarshal.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="440.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.geeklythings.fieldmarshal.fxmlcontrollers.FXMLController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" /><SplitPane dividerPositions="0.22338568935427575" focusTraversable="true" prefHeight="449.0" prefWidth="575.0">
-  <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="89.0" />
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-<children>
-        <Button fx:id="button" layoutX="32.0" layoutY="58.0" onAction="#handleButtonAction" text="Click Me!" />
-</children></AnchorPane>
-  </items>
-</SplitPane>
+<TitledPane prefHeight="440.0" prefWidth="714.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-143.0" AnchorPane.topAnchor="0.0">
+<content><SplitPane dividerPositions="0.22338568935427575" focusTraversable="true" prefHeight="449.0" prefWidth="575.0">
+        <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="231.0" prefWidth="89.0">
+          <children>
+            <VBox layoutY="-2.0" prefHeight="449.0" prefWidth="125.0" style="-fx-spacing: 10px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+              <children>
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="Load" />
+                <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="125.0" text="Tournament" />
+              </children>
+            </VBox>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+<children><ScrollPane prefHeight="401.0" prefViewportHeight="362.0" prefViewportWidth="569.0" prefWidth="600.0">
+<content><TableView layoutX="-90.0" layoutY="1.0" prefHeight="405.0" prefWidth="603.0">
+  <columns>
+    <TableColumn prefWidth="75.0" text="C1" />
+    <TableColumn prefWidth="75.0" text="C2" />
+  </columns>
+</TableView>
+</content>
+</ScrollPane>
+</children>
+        </AnchorPane>
+        </items>
+      </SplitPane>
+</content>
+</TitledPane>
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+            <Button fx:id="button" layoutX="220.5" layoutY="501.5" onAction="#handleButtonAction" text="Click Me!" />
     </children>
 </AnchorPane>
