@@ -67,7 +67,7 @@ public class Tournament extends AbstractEntityModel implements Serializable, Pro
     @Embedded  // don't create a seperate table for it
     private EventFormat format;// = new EventFormat();
         
-    @OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade={CascadeType.ALL})
     @JoinColumn(name="OWNER_ID", referencedColumnName="TOURNAMENT_ID")
     private List<Player> players;
     

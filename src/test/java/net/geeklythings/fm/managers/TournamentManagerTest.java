@@ -9,20 +9,30 @@ package net.geeklythings.fm.managers;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManagerFactory;
+import net.geeklythings.fm.jpa.TournamentJpaController;
+import net.geeklythings.fm.model.entity.PlayerTest;
 import net.geeklythings.fm.model.entity.Tournament;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author ENG-5 USER
  */
 public class TournamentManagerTest {
-    
+    static Logger log = LogManager.getLogger(PlayerTest.class.getName());
+    private EntityManagerFactory _emf;
+    private TournamentJpaController jpaController;
+    private TournamentManager manager;
     public TournamentManagerTest() {
     }
     
@@ -36,6 +46,14 @@ public class TournamentManagerTest {
     
     @Before
     public void setUp() {
+        _emf = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("net.geeklythings.FieldMarshalMySqlPU");
+        
+        jpaController = new TournamentJpaController(_emf);
+        log.debug("Creating TournamentManager");
+        manager = new TournamentManager( jpaController );
+        Tournament t = Tournament.createTournament(3);
+        manager.setTournament(t);
+        
     }
     
     @After
@@ -46,20 +64,21 @@ public class TournamentManagerTest {
      * Test of getTournament method, of class TournamentManager.
      */
     @Test
-    public void testGetTournament() {
+    public void testGetActiveTournament() {
         System.out.println("getTournament");
-        TournamentManager instance = null;
-        Tournament expResult = null;
-        Tournament result = instance.getTournament();
+        TournamentManager instance = manager;
+        Tournament expResult = new Tournament();
+        manager.setTournament( expResult );
+        Tournament result = instance.getActiveTournament();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
      * Test of getAllTournaments method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testGetAllTournaments() {
         System.out.println("getAllTournaments");
         TournamentManager instance = null;
@@ -73,7 +92,7 @@ public class TournamentManagerTest {
     /**
      * Test of setTournament method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testSetTournament() {
         System.out.println("setTournament");
         Tournament t = null;
@@ -86,7 +105,7 @@ public class TournamentManagerTest {
     /**
      * Test of updateTournament method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testUpdateTournament() {
         System.out.println("updateTournament");
         Tournament t = null;
@@ -99,7 +118,7 @@ public class TournamentManagerTest {
     /**
      * Test of loadTournament method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testLoadTournament() {
         System.out.println("loadTournament");
         long tournamentId = 0L;
@@ -114,7 +133,7 @@ public class TournamentManagerTest {
     /**
      * Test of propertyChange method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testPropertyChange() {
         System.out.println("propertyChange");
         PropertyChangeEvent pce = null;
@@ -127,7 +146,7 @@ public class TournamentManagerTest {
     /**
      * Test of addPropertyChangeListener method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testAddPropertyChangeListener() {
         System.out.println("addPropertyChangeListener");
         PropertyChangeListener listener = null;
@@ -140,7 +159,7 @@ public class TournamentManagerTest {
     /**
      * Test of removePropertyChangeListener method, of class TournamentManager.
      */
-    @Test
+    @Ignore @Test
     public void testRemovePropertyChangeListener() {
         System.out.println("removePropertyChangeListener");
         PropertyChangeListener listener = null;
@@ -148,6 +167,22 @@ public class TournamentManagerTest {
         instance.removePropertyChangeListener(listener);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+
+
+    /**
+     * Test of newTournament method, of class TournamentManager.
+     */
+    @Test (expected=EntityExistsException.class)
+    public void testNewTournament() {
+        System.out.println("newTournament");
+        Tournament t = new Tournament();
+        jpaController.create(t);
+        
+        TournamentManager instance = manager;
+        instance.newTournament(t);
+        // TODO review the generated test code and remove the default call to fail.
+        instance.newTournament(t);
     }
     
 }
