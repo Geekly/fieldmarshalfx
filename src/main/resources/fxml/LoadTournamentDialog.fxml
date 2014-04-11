@@ -4,7 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.6708542713567839" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="836.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.LoadTournamentDialogController">
+
+<AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.geeklythings.fm.ui.fxml.LoadTournamentDialogController">
+<children><SplitPane dividerPositions="0.6708542713567839" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="836.0">
   <items><ScrollPane prefHeight="200.0" prefWidth="200.0">
   <content><TableView fx:id="tableTournamentList" layoutX="14.0" layoutY="14.0" prefHeight="274.0" prefWidth="838.0">
   <columns>
@@ -29,3 +31,5 @@
 </children></AnchorPane>
   </items>
 </SplitPane>
+</children>
+</AnchorPane>

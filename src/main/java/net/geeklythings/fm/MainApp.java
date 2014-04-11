@@ -6,19 +6,41 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javax.persistence.EntityManagerFactory;
+import net.geeklythings.fm.jpa.TournamentJpaController;
+import net.geeklythings.fm.managers.TournamentManager;
+import net.geeklythings.fm.ui.fxml.MainWindowController;
 
 
 public class MainApp extends Application {
 
+    private final EntityManagerFactory _emf;
+    TournamentJpaController tournamentJpaController;
+    TournamentManager tournamentManager;
+    
+    public MainApp()
+    {
+        super();
+        _emf = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("net.geeklythings.FieldMarshalMySqlPU2");
+        
+    }
+    
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+        
+        tournamentJpaController = new TournamentJpaController(_emf);
+        tournamentManager = new TournamentManager( tournamentJpaController ); 
+        
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainWindow.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add("/styles/Styles.css");
         
         stage.setTitle("Field Marshal Tournament Runner");
         stage.setScene(scene);
+        
+        MainWindowController.primaryStage = stage;  // to be used later
+        
         stage.show();
     }
 

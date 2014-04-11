@@ -108,7 +108,7 @@ public class MatchPairing implements Serializable {
     }
 
     public void persist(Object object) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("FieldMarshalPU2");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("net.geeklythings_fieldmarshal_jpa");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         try {

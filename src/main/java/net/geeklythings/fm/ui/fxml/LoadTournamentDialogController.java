@@ -5,14 +5,21 @@
  */
 
 package net.geeklythings.fm.ui.fxml;
+import java.awt.Window;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import net.geeklythings.fm.model.entity.Tournament;
 
 /**
@@ -29,12 +36,33 @@ public class LoadTournamentDialogController implements Initializable {
     @FXML private Button buttonNewTournament;
     @FXML private Button buttonLoadTournament;
 
+    private Stage myParent;
+    private Stage dialogStage;
+    
+    public void showDialog( Stage parentStage )
+    {
+        this.myParent = parentStage;
+        
+        try {
+            dialogStage = new Stage();
+            AnchorPane dialog = FXMLLoader.load(LoadTournamentDialogController.class.getResource("/fxml/LoadTournamentDialog.fxml"));
+            Scene scene = new Scene(dialog);
+            dialogStage.setScene(scene);
+            dialogStage.initOwner(this.myParent);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.show();
+        } catch (Exception ex) {
+            System.out.println("Exception happened in show LoadTournamentController");
+            ex.printStackTrace();                
+        }
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // TODO:  Initialize with list of tournaments
     }    
 
     @FXML
