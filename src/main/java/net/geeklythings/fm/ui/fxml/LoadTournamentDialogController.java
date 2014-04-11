@@ -8,7 +8,10 @@ package net.geeklythings.fm.ui.fxml;
 import java.awt.Window;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.geeklythings.fm.MainApp;
 import net.geeklythings.fm.model.entity.Tournament;
 
 /**
@@ -41,6 +45,7 @@ public class LoadTournamentDialogController implements Initializable {
     
     public void showDialog( Stage parentStage )
     {
+        
         this.myParent = parentStage;
         
         try {
@@ -63,6 +68,9 @@ public class LoadTournamentDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO:  Initialize with list of tournaments
+        List<Tournament> tournaments = MainApp.tournamentManager.getAllTournaments();
+        ObservableList<Tournament> tableList = FXCollections.observableList(tournaments);
+        
     }    
 
     @FXML

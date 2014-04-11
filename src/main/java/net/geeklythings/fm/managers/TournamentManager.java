@@ -63,6 +63,13 @@ public class TournamentManager implements PropertyChangeListener {
         jpaController.create(this.tournament);
     }
     
+    public void newTournament(Tournament t)
+    {
+        //TODO:  prevent creation of duplicate tournaments
+        jpaController.create(this.tournament);
+        
+    }
+    
     public void updateTournament(Tournament t)
     {
         //this.tournament = t;

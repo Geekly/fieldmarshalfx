@@ -15,13 +15,13 @@ import net.geeklythings.fm.ui.fxml.MainWindowController;
 public class MainApp extends Application {
 
     private final EntityManagerFactory _emf;
-    TournamentJpaController tournamentJpaController;
-    TournamentManager tournamentManager;
+    private TournamentJpaController tournamentJpaController;
+    public static TournamentManager tournamentManager;
     
     public MainApp()
     {
         super();
-        _emf = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("net.geeklythings.FieldMarshalMySqlPU2");
+        _emf = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("net.geeklythings.FieldMarshalMySqlPU");
         
     }
     

@@ -94,4 +94,10 @@ public class Round extends AbstractEntityModel implements Serializable {
     public void setPairings(List<MatchPairing> pairings) {
         this.pairings = pairings;
     }
+    
+    public void addPairing( MatchPairing pairing)
+    {
+        if( this.pairings == null ) return;
+        this.pairings.add(pairing);
+    }
 }
