@@ -4,16 +4,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane fx:id="root" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.geeklythings.fm.ui.fxml.LoadTournamentDialogController">
 <children><SplitPane dividerPositions="0.6708542713567839" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="400.0" prefWidth="836.0">
   <items><ScrollPane prefHeight="200.0" prefWidth="200.0">
-  <content><TableView fx:id="tableTournamentList" layoutX="14.0" layoutY="14.0" prefHeight="274.0" prefWidth="838.0">
-  <columns>
-    <TableColumn fx:id="columnDate" prefWidth="116.0" text="Date" />
-    <TableColumn fx:id="columnLocation" prefWidth="199.0" text="Location" /><TableColumn fx:id="columnNumRounds" prefWidth="140.0" text="Number of Rounds" /><TableColumn fx:id="columnFormat" prefWidth="363.0" text="Format" />
-  </columns>
-</TableView>
+  <content><TableView fx:id="tableTournamentList" layoutX="14.0" layoutY="14.0" prefHeight="274.0" prefWidth="838.0" />
   </content>
 </ScrollPane>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -25,7 +19,7 @@
   <rowConstraints>
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
-<children><Button fx:id="buttonNewTournament" mnemonicParsing="false" onAction="#newTournament" text="New Tournament" GridPane.halignment="CENTER" /><Button fx:id="buttonLoadTournament" mnemonicParsing="false" onAction="#loadTournament" text="Load Tournament" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+<children><Button fx:id="buttonLoadTournament" mnemonicParsing="false" onAction="#loadTournament" text="Load Tournament" GridPane.halignment="CENTER" />
 </children>
 </GridPane>
 </children></AnchorPane>

@@ -4,7 +4,7 @@
 
     <groupId>net.geeklythings</groupId>
     <artifactId>fieldmarshal</artifactId>
-    <version>2.0</version>
+    <version>0.5</version>
     <packaging>jar</packaging>
 
     <name>Fieldmarshal</name>
@@ -13,20 +13,21 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mainClass>net.geeklythings.fm.MainApp</mainClass>
         <custom.build.directory>C:/temp/${project.groupId}/${project.artifactId}</custom.build.directory>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <archive>${project.build.directory}/${project.build.finalName}.jar</archive>
     </properties>
+
+    
 
     <organization>
         <!-- Used as the 'Vendor' for JNLP generation -->
         <name>Geeklythings.net</name>
     </organization>
-
-
+    
     <build>
         <directory>${custom.build.directory}</directory>
-        <plugins>
-            <!--
+        <plugins>          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -42,12 +43,11 @@
                             <excludeScope>system</excludeScope>
                             <excludeGroupIds>junit,org.mockito,org.hamcrest</excludeGroupIds>
                             <outputDirectory>${project.build.directory}/classes</outputDirectory>
+
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            -->
-            <!--
+            </plugin>  
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -55,14 +55,12 @@
                 <executions>
                     <execution>
                         <id>unpack-dependencies</id>
-
                         <phase>package</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
                             <executable>${java.home}/../bin/javafxpackager</executable>
-
                             <arguments>
                                 <argument>-createjar</argument>
                                 <argument>-nocss2bin</argument>
@@ -88,34 +86,57 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-			-->
-            <!--
+            </plugin>			
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
+                    <!--
                     <source>1.7</source>
                     <target>1.7</target>
+                    -->
                     <compilerArguments>
+                        <verbose />           
                         <bootclasspath>${sun.boot.class.path}${path.separator}${java.home}/lib/jfxrt.jar</bootclasspath>
                     </compilerArguments>
                 </configuration>
-            </plugin>
-            -->
-            
+            </plugin>          
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.16</version>
                 <configuration>
+                    <skipTests>true</skipTests>
                     <additionalClasspathElements>
                         <additionalClasspathElement>${java.home}/lib/jfxrt.jar</additionalClasspathElement>
                     </additionalClasspathElements>
                 </configuration>
             </plugin>
-            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>truezip-maven-plugin</artifactId>
+                <version>1.2</version>
+                <executions>
+                    <execution>
+                        <id>remove-RSA-and-SF-files</id>
+                        <goals>
+                            <goal>remove</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <fileset>
+                                <directory>${archive}/META-INF</directory>
+                                <includes>
+                                    <include>**/*.RSA</include>
+                                    <include>**/*.SF</include>
+                                    <include>**/*.DSA</include>
+                                </includes>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                </executions>
+    </plugin>
         </plugins>
     </build>
     <description>Tournament organizing tool</description>
@@ -147,13 +168,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.30</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.0-rc1</version>
-            <scope>test</scope>
-            <type>jar</type>
         </dependency>
     </dependencies>
 </project>

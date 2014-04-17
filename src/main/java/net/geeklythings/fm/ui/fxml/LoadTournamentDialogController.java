@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -33,10 +34,10 @@ import net.geeklythings.fm.model.entity.Tournament;
  */
 public class LoadTournamentDialogController implements Initializable {
     @FXML private TableView<Tournament> tableTournamentList;
-    @FXML private TableColumn<Tournament, String> columnDate;
-    @FXML private TableColumn<Tournament, String> columnLocation;
-    @FXML private TableColumn<Tournament, String> columnNumRounds;
-    @FXML private TableColumn<Tournament, String> columnFormat;
+    //@FXML private TableColumn<Tournament, String> columnDate;
+    //@FXML private TableColumn<Tournament, String> columnLocation;
+    //@FXML private TableColumn<Tournament, String> columnNumRounds;
+    //@FXML private TableColumn<Tournament, String> columnFormat;
     @FXML private Button buttonNewTournament;
     @FXML private Button buttonLoadTournament;
 
@@ -44,8 +45,7 @@ public class LoadTournamentDialogController implements Initializable {
     private Stage dialogStage;
     
     public void showDialog( Stage parentStage )
-    {
-        
+    {    
         this.myParent = parentStage;
         
         try {
@@ -68,9 +68,38 @@ public class LoadTournamentDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO:  Initialize with list of tournaments
-        List<Tournament> tournaments = MainApp.tournamentManager.getAllTournaments();
-        ObservableList<Tournament> tableList = FXCollections.observableList(tournaments);
+        tableTournamentList.setEditable(true);         
+        TableColumn columnDate = new TableColumn("Date");
+        TableColumn columnLocation = new TableColumn("Location");
+        TableColumn columnNumRounds = new TableColumn("NumRounds");
+        TableColumn columnFormat = new TableColumn("Type");     
         
+        columnDate.setMinWidth(100);
+        columnDate.setCellValueFactory(
+                new PropertyValueFactory<Tournament, String>("todaysDate"));
+        columnLocation.setMinWidth(300);
+        columnLocation.setCellValueFactory(
+                new PropertyValueFactory<Tournament, String>("location"));
+        columnNumRounds.setMinWidth(100);
+        columnNumRounds.setCellValueFactory(
+                new PropertyValueFactory<Tournament, Integer>("numRounds"));
+        columnFormat.setMinWidth(300);
+        columnFormat.setCellValueFactory(
+                new PropertyValueFactory<Tournament, String>("eventFormatType"));
+        
+        tableTournamentList.getColumns().addAll(columnDate, columnLocation, columnNumRounds, columnFormat);
+        
+        
+        
+        
+        List<Tournament> tournaments = MainApp.tournamentManager.getAllTournaments();
+        ObservableList<Tournament> tableData = FXCollections.observableList(tournaments);
+
+        System.out.println( tableData.toString() );
+        
+        
+        
+        tableTournamentList.setItems(tableData);
     }    
 
     @FXML
