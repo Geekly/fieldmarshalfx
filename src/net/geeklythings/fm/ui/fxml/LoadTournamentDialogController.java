@@ -50,7 +50,7 @@ public class LoadTournamentDialogController implements Initializable {
         
         try {
             dialogStage = new Stage();
-            AnchorPane dialog = FXMLLoader.load(LoadTournamentDialogController.class.getResource("/fxml/LoadTournamentDialog.fxml"));
+            AnchorPane dialog = FXMLLoader.load(LoadTournamentDialogController.class.getResource("/resources/fxml/LoadTournamentDialog.fxml"));
             Scene scene = new Scene(dialog);
             dialogStage.setScene(scene);
             dialogStage.initOwner(this.myParent);

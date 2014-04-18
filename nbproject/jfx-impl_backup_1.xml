@@ -1095,7 +1095,7 @@
     </target>
     <target name="-copy-binary-css" depends="-init-css-conversion,-set-binary-css,-unset-binary-css,-copy-binary-css-bypass,-copy-binary-css-impl"/>
     <target name="-init-css-conversion" depends="-check-project,-check-ant-jre-version">
-        <fileset id="cssfiles" dir="${basedir}${file.separator}${build.classes.dir}">
+        <fileset id="cssfiles" dir="${build.classes.dir}">
             <include name="**${file.separator}*.css"/>
         </fileset>
         <pathconvert refid="cssfiles" property="cssfileset.notempty" setonempty="false"/>
