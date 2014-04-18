@@ -14,8 +14,8 @@ import javax.persistence.EntityNotFoundException;
 import net.geeklythings.fm.jpa.TournamentJpaController;
 import net.geeklythings.fm.jpa.exceptions.NonexistentEntityException;
 import net.geeklythings.fm.model.entity.Tournament;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 /**
  * ToournamentManager keeps the active Tournament and manages interaction with it.  It 
@@ -26,7 +26,7 @@ public class TournamentManager implements PropertyChangeListener {
 
     // tournament notifies the manager of a change, and the manager persists it
     
-    private static final Logger logger = LogManager.getLogger(TournamentManager.class.getName());
+//    private static final Logger logger = LogManager.getLogger(TournamentManager.class.getName());
     private final PropertyChangeSupport changeSupport = new java.beans.PropertyChangeSupport(this);
     
     //public static final String LOAD_TOURNAMENT_ID = "LoadTournamentId";
@@ -89,7 +89,7 @@ public class TournamentManager implements PropertyChangeListener {
         ///changeSupport.firePropertyChange("setTournament", null, this.tournament);
         if( jpaController.findTournament(t.getId()) != null )
             {
-            logger.debug("Updating Tournament " + t.toString());
+//            logger.debug("Updating Tournament " + t.toString());
             try {
                 jpaController.edit(t);        
             } catch (NonexistentEntityException e){} catch (Exception ex) { 
@@ -108,12 +108,12 @@ public class TournamentManager implements PropertyChangeListener {
     {
             if (tournamentId != 0L)
             {
-                logger.debug("Trying to load Tournament {}", tournamentId );
+//                logger.debug("Trying to load Tournament {}", tournamentId );
                 try {
                     Tournament tournament = jpaController.findTournament(tournamentId);
                     if (tournament != null)
                     {
-                        logger.debug("TournamentManager: NotifyObservers: {}", tournament);
+//                        logger.debug("TournamentManager: NotifyObservers: {}", tournament);
                         //app.setActiveTournament(tournament);
                         changeSupport.firePropertyChange("activeTournament", null, tournament);
                         //setChanged();
@@ -136,7 +136,7 @@ public class TournamentManager implements PropertyChangeListener {
     
     @Override
     public void propertyChange(PropertyChangeEvent pce) {
-        logger.debug("TournamentManager: propertyChange: {} from class: {}", pce.getPropertyName(), pce.getSource().getClass().getName());
+//        logger.debug("TournamentManager: propertyChange: {} from class: {}", pce.getPropertyName(), pce.getSource().getClass().getName());
         /*
         if( pce.getPropertyName().matches(LoadView.LOAD_TOURNAMENT_ID))
         {
