@@ -1,13 +1,2 @@
-*.class
-*.jar
-
-/lib
-/bin
-/old
-/build
-/dist
-/nbproject/private/
-/database
-logs/
-*.log
-/target/
+/build/
+/dist/

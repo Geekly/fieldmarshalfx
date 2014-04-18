@@ -84,12 +84,10 @@ public class LoadTournamentDialogController implements Initializable {
         columnNumRounds.setCellValueFactory(
                 new PropertyValueFactory<Tournament, Integer>("numRounds"));
         columnFormat.setMinWidth(300);
-        columnFormat.setCellValueFactory(
+        /*columnFormat.setCellValueFactory(
                 new PropertyValueFactory<Tournament, String>("eventFormatType"));
-        
-        tableTournamentList.getColumns().addAll(columnDate, columnLocation, columnNumRounds, columnFormat);
-        
-        
+        */
+        tableTournamentList.getColumns().addAll(columnDate, columnLocation, columnNumRounds);
         
         
         List<Tournament> tournaments = MainApp.tournamentManager.getAllTournaments();

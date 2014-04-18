@@ -24,8 +24,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import net.geeklythings.fm.model.PlayerStatus;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 
 /**
@@ -37,7 +37,7 @@ import org.apache.logging.log4j.Logger;
 public class Tournament extends AbstractEntityModel implements Serializable, PropertyChangeListener {
     
     private static final long serialVersionUID = 1L;
-    private final static Logger logger = LogManager.getLogger(Tournament.class);    
+   // private final static Logger logger = LogManager.getLogger(Tournament.class);    
     
     @Id  @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="TOURNAMENT_ID")
@@ -81,10 +81,15 @@ public class Tournament extends AbstractEntityModel implements Serializable, Pro
     //@Transient
     //private String eventFormatType;
     @Transient
+    public String eventFormatType;
+    /*
     public String getEventFormatType()
     {
-        return format.getFormatType();
-    }
+        if( format != null )
+        {
+            return format.getFormatType();
+        }
+    }*/
 
         
     public List<Player> getPlayers()
@@ -292,7 +297,7 @@ public class Tournament extends AbstractEntityModel implements Serializable, Pro
         int lastRoundIndex = rounds.size()-1;
         this.rounds.remove( lastRoundIndex );
         this.numRounds = rounds.size();
-        logger.debug("Tournament: RemoveLastRound #{}", lastRoundIndex);
+//        logger.debug("Tournament: RemoveLastRound #{}", lastRoundIndex);
         firePropertyChange(REMOVEROUND, oldRounds, rounds);
     }
     
@@ -302,7 +307,7 @@ public class Tournament extends AbstractEntityModel implements Serializable, Pro
      */
     public void dropPlayer(Player dropped)
     {
-        logger.debug("Tournament: Dropping Player: {}", dropped);
+  //      logger.debug("Tournament: Dropping Player: {}", dropped);
         if( players.contains(dropped) )
         {
         //keep the player in the tournament, but eliminate from pairings
