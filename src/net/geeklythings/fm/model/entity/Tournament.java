@@ -78,18 +78,17 @@ public class Tournament extends AbstractEntityModel implements Serializable, Pro
     @Transient
     private int currentRound = 1;
     
-    //@Transient
-    //private String eventFormatType;
     @Transient
     public String eventFormatType;
-    /*
+    
     public String getEventFormatType()
     {
         if( format != null )
         {
             return format.getFormatType();
         }
-    }*/
+        return null;
+    }
 
         
     public List<Player> getPlayers()

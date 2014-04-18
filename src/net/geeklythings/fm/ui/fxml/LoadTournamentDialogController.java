@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,11 +21,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import net.geeklythings.fm.MainApp;
 import net.geeklythings.fm.model.entity.Tournament;
 
@@ -64,6 +68,8 @@ public class LoadTournamentDialogController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -84,19 +90,23 @@ public class LoadTournamentDialogController implements Initializable {
         columnNumRounds.setCellValueFactory(
                 new PropertyValueFactory<Tournament, Integer>("numRounds"));
         columnFormat.setMinWidth(300);
-        /*columnFormat.setCellValueFactory(
-                new PropertyValueFactory<Tournament, String>("eventFormatType"));
-        */
-        tableTournamentList.getColumns().addAll(columnDate, columnLocation, columnNumRounds);
+        columnFormat.setCellValueFactory(
+//                new PropertyValueFactory<Tournament, String>("eventFormatType"));
+            new Callback<CellDataFeatures<Tournament, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(CellDataFeatures<Tournament, String> t) {
+                    return new ReadOnlyObjectWrapper(t.getValue().getEventFormatType()); }});
+ 
         
+        tableTournamentList.getColumns().addAll(columnDate, 
+                                            columnLocation, 
+                                            columnNumRounds,
+                                            columnFormat);
         
         List<Tournament> tournaments = MainApp.tournamentManager.getAllTournaments();
         ObservableList<Tournament> tableData = FXCollections.observableList(tournaments);
-
+        
         System.out.println( tableData.toString() );
-        
-        
-        
         tableTournamentList.setItems(tableData);
     }    
 
