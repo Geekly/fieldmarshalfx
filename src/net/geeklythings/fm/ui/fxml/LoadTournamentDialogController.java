@@ -20,9 +20,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TableView.TableViewSelectionModel;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -37,7 +39,7 @@ import net.geeklythings.fm.model.entity.Tournament;
  * @author ENG-5 USER
  */
 public class LoadTournamentDialogController implements Initializable {
-    @FXML private TableView<Tournament> tableTournamentList;
+    @FXML private TableView<Tournament> tableTournamentView;
     //@FXML private TableColumn<Tournament, String> columnDate;
     //@FXML private TableColumn<Tournament, String> columnLocation;
     //@FXML private TableColumn<Tournament, String> columnNumRounds;
@@ -74,7 +76,9 @@ public class LoadTournamentDialogController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO:  Initialize with list of tournaments
-        tableTournamentList.setEditable(true);         
+        tableTournamentView.setEditable(true);
+        //tableTournamentView.setSelectionModel(new TableViewSelectionModel());
+        //tableTournamentView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE); //only one row at a time
         TableColumn columnDate = new TableColumn("Date");
         TableColumn columnLocation = new TableColumn("Location");
         TableColumn columnNumRounds = new TableColumn("NumRounds");
@@ -98,7 +102,7 @@ public class LoadTournamentDialogController implements Initializable {
                     return new ReadOnlyObjectWrapper(t.getValue().getEventFormatType()); }});
  
         
-        tableTournamentList.getColumns().addAll(columnDate, 
+        tableTournamentView.getColumns().addAll(columnDate, 
                                             columnLocation, 
                                             columnNumRounds,
                                             columnFormat);
@@ -107,7 +111,7 @@ public class LoadTournamentDialogController implements Initializable {
         ObservableList<Tournament> tableData = FXCollections.observableList(tournaments);
         
         System.out.println( tableData.toString() );
-        tableTournamentList.setItems(tableData);
+        tableTournamentView.setItems(tableData);
     }    
 
     @FXML
